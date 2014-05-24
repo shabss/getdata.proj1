@@ -1,3 +1,5 @@
+library(reshape2)
+
 #
 #test/y_test.txt contains the activity code 
 #associated with each value in test/x_test.txt
