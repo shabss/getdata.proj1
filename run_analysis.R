@@ -5,6 +5,9 @@
 #features.txt contains column names for x_test.txt
 #
 
+#Main function. This is called at the end of the stipt
+#so it will be executed automatically when this script
+#is sourced
 RunAnalysis <- function() {
     LoadDictionary()
     data.merged <- LoadMergedData()
@@ -123,3 +126,4 @@ MakeTidyData <- function(data.merged = NULL) {
     tidy.data
 }
 
+RunAnalysis()
