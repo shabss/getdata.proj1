@@ -5,6 +5,21 @@
 #features.txt contains column names for x_test.txt
 #
 
+RunAnalysis <- function() {
+    LoadDictionary()
+    data.merged <- LoadMergedData()
+    extract.meansd <- ExtractMeanStd(data.merged)
+    tidy <- MakeTidyData(data.merged)    
+    print(tidy)
+    tidy
+}
+
+Test.RunAnalysis <- function() {
+    tidy <- read.table("tidy.txt", header=TRUE, sep=" ")
+    print(tidy)
+    tidy
+}
+
 LoadDictionary <- function() {
 
     #load feature names and convert them into descriptive names
@@ -104,12 +119,7 @@ MakeTidyData <- function(data.merged = NULL) {
     
     molten <- melt(data.merged, id=c("subject", "activity"))
     tidy.data <- dcast(molten, subject + activity ~ variable, mean)
-    write.csv(tidy.data, "tidy.csv", row.names=FALSE, quote=FALSE)
-    print(tidy.data)
+    write.table(tidy.data, "tidy.txt", sep=" ", row.names=FALSE, quote=FALSE)
     tidy.data
 }
 
-LoadDictionary()
-data.merged <- LoadMergedData()
-extract.meansd <- ExtractMeanStd(data.merged)
-tidy <- MakeTidyData(data.merged)
