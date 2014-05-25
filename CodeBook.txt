@@ -16,7 +16,7 @@ The tidy data set is produced with the following steps:
    * Characters '(', ')', '-' and ',' were converted to dot '.'
    * Wrap terms of mean, std, body, gyro, acc, jerk, mag, min, max, sma, mean and gravity within 
      dots "." e.g "word"" --> ".word."
-   * Remove consqutive and trailing dots 
+   * Remove consequtive and trailing dots 
    * "bandEnergy" variales actually represent ranges, therefore change "X-Y" to "XtoY"
    * Rename duplicated "bandEnergy" variables to contain X,Y,Z coordinates
 * Produce a merged data set
