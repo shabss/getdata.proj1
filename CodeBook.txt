@@ -22,7 +22,7 @@ The tidy data set is produced with the following steps:
 
 Feature name mapping
 ====================
-Please look at the feature_info.txt in the downloaded zip file for information on raw names. As indicated above, the raw names were converted into descriptive names. Following list contains column names that are present in tidy data set
+Please look at the feature_info.txt in the downloaded zip file for information on raw names. As indicated above, the raw names were converted into descriptive names. Following list contains the conversion info
 
    #1. tBodyAcc-mean()-X -- t.body.acc.mean.x
    #2. tBodyAcc-mean()-Y -- t.body.acc.mean.y

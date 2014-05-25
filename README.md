@@ -3,6 +3,9 @@
 
 run_analysis.R produces a tidy data set that contains averages of means and standard deviation measurements of *Human Activity Recognition Using Smartphones Dataset Version 1.0* (http://archive.ics.uci.edu/ml/datasets/Human+Activity+Recognition+Using+Smartphones) downloaded from https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip
 
+##Instructions
+Download the zip file above and extrac it. Copy this .R file to that folder and source it from R (after chaging working directory to unzipped file folder). tidy.txt will be produced after sourcing is complete
+
 ## Methodology
 The tidy data set is produced with the following steps:
 
@@ -20,7 +23,7 @@ The tidy data set is produced with the following steps:
 * Produce the tidy data set with the average of each feature for each activity and each subject
 
 ## Feature name mapping
-Please look at the feature_info.txt in the downloaded zip file for information on raw names. As indicated above, the raw names were converted into descriptive names. Following tables contain partial list of column names that are present in tidy data set
+Please look at the feature_info.txt in the downloaded zip file for information on raw names. As indicated above, the raw names were converted into descriptive names. Following table contains the conversion info.
 
 <table>
 <tr><td> Seq </td><td> Raw Name </td><td> Descriptive Name </td><tr>

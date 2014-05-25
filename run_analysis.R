@@ -1,9 +1,16 @@
 #Please read the README.md on functional details of this script
+
 #run_analysis.R produces a tidy data set that contains averages of 
 #means and standard deviation measurements of *Human Activity 
 #Recognition Using Smartphones Dataset Version 1.0* 
 #(http://archive.ics.uci.edu/ml/datasets/Human+Activity+Recognition+Using+Smartphones) 
 #downloaded from https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip
+
+#Instructions
+#---------------
+#Download the zip file above and extrac it. Copy this .R file to that folder 
+#and source it from R (after chaging working directory to unzipped file folder).
+#tidy.txt will be produced after sourcing is complete
 
 library(reshape2)
 
