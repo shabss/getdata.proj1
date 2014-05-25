@@ -14,8 +14,8 @@ RunAnalysis <- function() {
     LoadDictionary()
     data.merged <- LoadMergedData()
     extract.meansd <- ExtractMeanStd(data.merged)
-    tidy <- MakeTidyData(data.merged)    
-    print(tidy)
+    tidy <- MakeTidyData(extract.meansd)    
+    #print(tidy)
     tidy
 }
 
@@ -49,9 +49,10 @@ LoadDictionary <- function() {
     #remove trailing dot at the end
     features$desc.name <- gsub("(\\.*)\\.$", "\\1", 
                                features$desc.name, ignore.case=TRUE)
-    
+        
     #there are few features that are duplicated 3 times. Append .x, .y, z
     desc.dups = unique(features$desc.name[duplicated(features$desc.name)])
+    #print(desc.dups)
     for (dd in desc.dups) {
         dd.rows <- features$desc.name == dd
         features$desc.name[dd.rows] <- paste(features$desc.name[dd.rows], c(".x", ".y", ".z"), sep="")
@@ -113,16 +114,16 @@ ExtractMeanStd <- function(data.merged = NULL) {
     extracted <- data.merged[ ,extract.cols]
 }
 
-MakeTidyData <- function(data.merged = NULL) {
+MakeTidyData <- function(extacted = NULL) {
     
     if (is.null(dict)) {
         LoadDictionary()
     }
-    if (is.null(data.merged)) {
-        data.merged <- LoadMergedData()
+    if (is.null(extacted)) {
+        extacted <- ExtractMeanStd()
     }
     
-    molten <- melt(data.merged, id=c("subject", "activity"))
+    molten <- melt(extacted, id=c("subject", "activity"))
     tidy.data <- dcast(molten, subject + activity ~ variable, mean)
     write.table(tidy.data, "tidy.txt", sep=" ", row.names=FALSE, quote=FALSE)
     tidy.data
