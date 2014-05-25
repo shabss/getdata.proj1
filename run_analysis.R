@@ -86,7 +86,7 @@ LoadDictionary <- function() {
 LoadMergedData <- function() {
 
     #Load dicionary if it does not exist in global environment
-    if (!exists(dict)) {
+    if (!exists("dict")) {
         LoadDictionary()
     }
     
@@ -133,7 +133,7 @@ LoadMergedData <- function() {
 ExtractMeanStd <- function(data.merged = NULL) {
 
     #Load dicionary if it does not exist in global environment    
-    if (!exists(dict)) {
+    if (!exists("dict")) {
         LoadDictionary()
     }
     
@@ -160,7 +160,7 @@ ExtractMeanStd <- function(data.merged = NULL) {
 MakeTidyData <- function(extacted = NULL) {
     
     #Load dicionary if it does not exist in global environment    
-    if (!exists(dict)) {
+    if (!exists("dict")) {
         LoadDictionary()
     }
     
