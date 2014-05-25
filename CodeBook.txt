@@ -1,0 +1,112 @@
+
+Intent
+==========
+run_analysis.R produces a tidy data set that contains averages of means and standard deviation measurements of *Human Activity Recognition Using Smartphones Dataset Version 1.0* (http://archive.ics.uci.edu/ml/datasets/Human+Activity+Recognition+Using+Smartphones) downloaded from https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip
+
+Methodology
+==========
+The tidy data set is produced with the following steps:
+
+* Convert feature names (in features.txt) to descriptive names as follows (see name mappings below):
+   * Convert to lower case
+   * Characters '(', ')', '-' and ',' were converted to dot '.'
+   * Wrap terms of mean, std, body, gyro, acc, jerk, mag, min, max, sma, mean and gravity within dots "." e.g "word"" --> ".word."
+   * Remove consqutive and trailing dots 
+   * "bandEnergy" variales actually represent ranges, therefore change "X-Y" to "XtoY"
+   * Rename duplicated "bandEnergy" variables to contain X,Y,Z coordinates
+* Produce a merged data set
+   * Merge the training and the test sets while adding respecitve subjects for each row and using activity names instead of codes (loaded from activity_labels.txt)
+* From the merged data set, extract columns that contain the mean and standard deviation for each measurement (see name mappings below)
+   * Columns are selected by grep-ing "mean" and "std" from the feature names
+* Produce the tidy data set with the average of each feature for each activity and each subject
+
+Feature name mapping
+====================
+Please look at the feature_info.txt in the downloaded zip file for information on raw names. As indicated above, the raw names were converted into descriptive names. Following list contains column names that are present in tidy data set
+
+   #1. tBodyAcc-mean()-X -- t.body.acc.mean.x
+   #2. tBodyAcc-mean()-Y -- t.body.acc.mean.y
+   #3. tBodyAcc-mean()-Z -- t.body.acc.mean.z
+   #4. tBodyAcc-std()-X -- t.body.acc.std.x
+   #5. tBodyAcc-std()-Y -- t.body.acc.std.y
+   #6. tBodyAcc-std()-Z -- t.body.acc.std.z
+   #7. tGravityAcc-mean()-X -- t.gravity.acc.mean.x
+   #8. tGravityAcc-mean()-Y -- t.gravity.acc.mean.y
+   #9. tGravityAcc-mean()-Z -- t.gravity.acc.mean.z
+   #10. tGravityAcc-std()-X -- t.gravity.acc.std.x
+   #11. tGravityAcc-std()-Y -- t.gravity.acc.std.y
+   #12. tGravityAcc-std()-Z -- t.gravity.acc.std.z
+   #13. tBodyAccJerk-mean()-X -- t.body.acc.jerk.mean.x
+   #14. tBodyAccJerk-mean()-Y -- t.body.acc.jerk.mean.y
+   #15. tBodyAccJerk-mean()-Z -- t.body.acc.jerk.mean.z
+   #16. tBodyAccJerk-std()-X -- t.body.acc.jerk.std.x
+   #17. tBodyAccJerk-std()-Y -- t.body.acc.jerk.std.y
+   #18. tBodyAccJerk-std()-Z -- t.body.acc.jerk.std.z
+   #19. tBodyGyro-mean()-X -- t.body.gyro.mean.x
+   #20. tBodyGyro-mean()-Y -- t.body.gyro.mean.y
+   #21. tBodyGyro-mean()-Z -- t.body.gyro.mean.z
+   #22. tBodyGyro-std()-X -- t.body.gyro.std.x
+   #23. tBodyGyro-std()-Y -- t.body.gyro.std.y
+   #24. tBodyGyro-std()-Z -- t.body.gyro.std.z
+   #25. tBodyGyroJerk-mean()-X -- t.body.gyro.jerk.mean.x
+   #26. tBodyGyroJerk-mean()-Y -- t.body.gyro.jerk.mean.y
+   #27. tBodyGyroJerk-mean()-Z -- t.body.gyro.jerk.mean.z
+   #28. tBodyGyroJerk-std()-X -- t.body.gyro.jerk.std.x
+   #29. tBodyGyroJerk-std()-Y -- t.body.gyro.jerk.std.y
+   #30. tBodyGyroJerk-std()-Z -- t.body.gyro.jerk.std.z
+   #31. tBodyAccMag-mean() -- t.body.acc.mag.mean
+   #32. tBodyAccMag-std() -- t.body.acc.mag.std
+   #33. tGravityAccMag-mean() -- t.gravity.acc.mag.mean
+   #34. tGravityAccMag-std() -- t.gravity.acc.mag.std
+   #35. tBodyAccJerkMag-mean() -- t.body.acc.jerk.mag.mean
+   #36. tBodyAccJerkMag-std() -- t.body.acc.jerk.mag.std
+   #37. tBodyGyroMag-mean() -- t.body.gyro.mag.mean
+   #38. tBodyGyroMag-std() -- t.body.gyro.mag.std
+   #39. tBodyGyroJerkMag-mean() -- t.body.gyro.jerk.mag.mean
+   #40. tBodyGyroJerkMag-std() -- t.body.gyro.jerk.mag.std
+   #41. fBodyAcc-mean()-X -- f.body.acc.mean.x
+   #42. fBodyAcc-mean()-Y -- f.body.acc.mean.y
+   #43. fBodyAcc-mean()-Z -- f.body.acc.mean.z
+   #44. fBodyAcc-std()-X -- f.body.acc.std.x
+   #45. fBodyAcc-std()-Y -- f.body.acc.std.y
+   #46. fBodyAcc-std()-Z -- f.body.acc.std.z
+   #47. fBodyAcc-meanFreq()-X -- f.body.acc.mean.freq.x
+   #48. fBodyAcc-meanFreq()-Y -- f.body.acc.mean.freq.y
+   #49. fBodyAcc-meanFreq()-Z -- f.body.acc.mean.freq.z
+   #50. fBodyAccJerk-mean()-X -- f.body.acc.jerk.mean.x
+   #51. fBodyAccJerk-mean()-Y -- f.body.acc.jerk.mean.y
+   #52. fBodyAccJerk-mean()-Z -- f.body.acc.jerk.mean.z
+   #53. fBodyAccJerk-std()-X -- f.body.acc.jerk.std.x
+   #54. fBodyAccJerk-std()-Y -- f.body.acc.jerk.std.y
+   #55. fBodyAccJerk-std()-Z -- f.body.acc.jerk.std.z
+   #56. fBodyAccJerk-meanFreq()-X -- f.body.acc.jerk.mean.freq.x
+   #57. fBodyAccJerk-meanFreq()-Y -- f.body.acc.jerk.mean.freq.y
+   #58. fBodyAccJerk-meanFreq()-Z -- f.body.acc.jerk.mean.freq.z
+   #59. fBodyGyro-mean()-X -- f.body.gyro.mean.x
+   #60. fBodyGyro-mean()-Y -- f.body.gyro.mean.y
+   #61. fBodyGyro-mean()-Z -- f.body.gyro.mean.z
+   #62. fBodyGyro-std()-X -- f.body.gyro.std.x
+   #63. fBodyGyro-std()-Y -- f.body.gyro.std.y
+   #64. fBodyGyro-std()-Z -- f.body.gyro.std.z
+   #65. fBodyGyro-meanFreq()-X -- f.body.gyro.mean.freq.x
+   #66. fBodyGyro-meanFreq()-Y -- f.body.gyro.mean.freq.y
+   #67. fBodyGyro-meanFreq()-Z -- f.body.gyro.mean.freq.z
+   #68. fBodyAccMag-mean() -- f.body.acc.mag.mean
+   #69. fBodyAccMag-std() -- f.body.acc.mag.std
+   #70. fBodyAccMag-meanFreq() -- f.body.acc.mag.mean.freq
+   #71. fBodyBodyAccJerkMag-mean() -- f.body.body.acc.jerk.mag.mean
+   #72. fBodyBodyAccJerkMag-std() -- f.body.body.acc.jerk.mag.std
+   #73. fBodyBodyAccJerkMag-meanFreq() -- f.body.body.acc.jerk.mag.mean.freq
+   #74. fBodyBodyGyroMag-mean() -- f.body.body.gyro.mag.mean
+   #75. fBodyBodyGyroMag-std() -- f.body.body.gyro.mag.std
+   #76. fBodyBodyGyroMag-meanFreq() -- f.body.body.gyro.mag.mean.freq
+   #77. fBodyBodyGyroJerkMag-mean() -- f.body.body.gyro.jerk.mag.mean
+   #78. fBodyBodyGyroJerkMag-std() -- f.body.body.gyro.jerk.mag.std
+   #79. fBodyBodyGyroJerkMag-meanFreq() -- f.body.body.gyro.jerk.mag.mean.freq
+   #80. angle(tBodyAccMean,gravity) -- angle.t.body.acc.mean.gravity
+   #81. angle(tBodyAccJerkMean),gravityMean) -- angle.t.body.acc.jerk.mean.gravity.mean
+   #82. angle(tBodyGyroMean,gravityMean) -- angle.t.body.gyro.mean.gravity.mean
+   #83. angle(tBodyGyroJerkMean,gravityMean) -- angle.t.body.gyro.jerk.mean.gravity.mean
+   #84. angle(X,gravityMean) -- angle.x.gravity.mean
+   #85. angle(Y,gravityMean) -- angle.y.gravity.mean
+   #86. angle(Z,gravityMean) -- angle.z.gravity.mean
