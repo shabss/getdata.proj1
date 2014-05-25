@@ -8,7 +8,7 @@
 
 #Instructions
 #---------------
-#Download the zip file above and extrac it. Copy this .R file to that folder 
+#Download the zip file above and extract it. Copy run_analysis.R to that folder 
 #and source it from R (after chaging working directory to unzipped file folder).
 #tidy.txt will be produced after sourcing is complete
 
